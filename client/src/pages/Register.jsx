@@ -10,7 +10,8 @@ function Register() {
   const navigate = useNavigate();
 
   const handleRegister = async () => {
-    const res = await fetch("http://localhost:5000/api/auth/signup", {
+  try {
+    const res = await fetch("https://task-manager-api.onrender.com/api/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -20,13 +21,17 @@ function Register() {
 
     const data = await res.json();
 
-    if (data.token) {
+    if (res.ok) {
       localStorage.setItem("token", data.token);
       navigate("/dashboard");
     } else {
-      alert("Registration failed");
+      alert(data.message || "Registration failed");
     }
-  };
+
+  } catch (err) {
+    alert("Something went wrong");
+  }
+};
 
 useEffect(() => {
   const token = localStorage.getItem("token");

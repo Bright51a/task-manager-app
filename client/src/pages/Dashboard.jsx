@@ -38,7 +38,7 @@ function Dashboard() {
   useEffect(() => {
     if (!token) return;
 
-    fetch("http://localhost:5000/api/tasks", {
+    fetch("https://task-manager-api.onrender.com/api/tasks", {
       headers: {
         Authorization: token
       }
@@ -55,7 +55,7 @@ function Dashboard() {
     setLoading(true);
 
     try {
-  const res = await fetch("http://localhost:5000/api/tasks", {
+  const res = await fetch("https://task-manager-api.onrender.com/api/tasks", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -84,7 +84,7 @@ setLoading(false);
   // ❌ Delete task
   const deleteTask = async (id) => {
   try {
-    const res = await fetch(`http://localhost:5000/api/tasks/${id}`, {
+    const res = await fetch(`https://task-manager-api.onrender.com/api/tasks`, {
       method: "DELETE",
       headers: {
         Authorization: token
@@ -106,7 +106,7 @@ setLoading(false);
 // ✏️ Update task
   const updateTask = async (id) => {
   try {
-    const res = await fetch(`http://localhost:5000/api/tasks/${id}`, {
+    const res = await fetch(`https://task-manager-api.onrender.com/api/tasks`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -142,7 +142,7 @@ setLoading(false);
 
   const toggleStatus = async (id, currentStatus) => {
   try {
-    const res = await fetch(`http://localhost:5000/api/tasks/${id}`, {
+    const res = await fetch(`https://task-manager-api.onrender.com/api/tasks`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
