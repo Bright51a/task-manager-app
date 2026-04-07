@@ -7,13 +7,15 @@ const authRoutes = require("./routes/auth");
 
 const app = express();
 
-app.use(cors({
-  origin: "*",
+const corsOptions = {
+  origin: ["http://localhost:5173"], // your frontend
   methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
-app.use(cors());
-app.use(express.json());
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+};
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // 👈 THIS LINE IS CRITICAL
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
