@@ -84,7 +84,7 @@ setLoading(false);
   // ❌ Delete task
   const deleteTask = async (id) => {
   try {
-    const res = await fetch(`https://task-manager-api.onrender.com/api/tasks`, {
+    const res = await fetch(`https://task-manager-api.onrender.com/api/tasks/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: token
@@ -98,7 +98,6 @@ setLoading(false);
       toast.error("Failed to delete task");
     }
   } catch (err) {
-    console.error(err);
     toast.error("Something went wrong");
   }
 };
@@ -106,7 +105,7 @@ setLoading(false);
 // ✏️ Update task
   const updateTask = async (id) => {
   try {
-    const res = await fetch(`https://task-manager-api.onrender.com/api/tasks`, {
+    const res = await fetch(`https://task-manager-api.onrender.com/api/tasks/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -125,8 +124,7 @@ setLoading(false);
     } else {
       toast.error("Update failed");
     }
-
-  } catch (err) {
+  } catch {
     toast.error("Something went wrong");
   }
 
@@ -140,9 +138,10 @@ setLoading(false);
     navigate("/login");
   };
 
+  // ✅ Toggle task status
   const toggleStatus = async (id, currentStatus) => {
   try {
-    const res = await fetch(`https://task-manager-api.onrender.com/api/tasks`, {
+    const res = await fetch(`https://task-manager-api.onrender.com/api/tasks/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -163,8 +162,7 @@ setLoading(false);
     } else {
       toast.error("Failed to update");
     }
-
-  } catch (err) {
+  } catch {
     toast.error("Something went wrong");
   }
 };
