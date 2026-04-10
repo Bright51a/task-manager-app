@@ -9,6 +9,7 @@ function Login() {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+  try {
     const res = await fetch("https://task-manager-api.onrender.com/api/auth/login", {
       method: "POST",
       headers: {
@@ -17,15 +18,29 @@ function Login() {
       body: JSON.stringify({ email, password }),
     });
 
+    // 🔥 Check if response is OK
+    if (!res.ok) {
+      const text = await res.text();
+      console.error("Server error:", text);
+      alert("Login failed");
+      return;
+    }
+
     const data = await res.json();
+    console.log("Response:", data); // 👈 DEBUG
 
     if (data.token) {
       localStorage.setItem("token", data.token);
       navigate("/dashboard");
     } else {
-      alert("Invalid credentials");
+      alert(data.message || "Invalid credentials");
     }
-  };
+
+  } catch (err) {
+    console.error("Fetch error:", err);
+    alert("Server not reachable");
+  }
+};
 
   useEffect(() => {
   const token = localStorage.getItem("token");
