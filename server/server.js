@@ -8,19 +8,12 @@ const taskRoutes = require("./routes/tasks");
 
 const app = express();
 
-const corsOptions = {
-  origin: [
-    "http://localhost:5173",
-    "https://your-frontend-domain.onrender.com"
-  ],
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true
-};
-
+// ✅ FIXED CORS
 app.use(cors({
   origin: "*"
 }));
+
+// ✅ BODY PARSER
 app.use(express.json());
 
 // Connect to MongoDB
