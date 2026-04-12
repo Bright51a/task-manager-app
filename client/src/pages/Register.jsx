@@ -11,7 +11,7 @@ function Register() {
 
   const handleRegister = async () => {
   try {
-    const res = await fetch("https://task-manager-api.onrender.com/api/auth/signup", {
+    const res = await fetch("https://task-manager-app-e8t7.onrender.com/api/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -8,21 +8,12 @@ const taskRoutes = require("./routes/tasks");
 
 const app = express();
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
-
-  next();
-});
-
-// ✅ FIXED CORS
+// ✅ SIMPLE & CORRECT CORS SETUP
 app.use(cors({
-  origin: "*"
+  origin: "http://localhost:5173",
+  "https://task-manager-app-murex-gamma.vercel.app/": true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
 }));
 
 // ✅ BODY PARSER
@@ -41,12 +32,8 @@ app.get("/", (req, res) => {
   res.send("API is running...");
 });
 
-// PORT FIX
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
-
-console.log("NEW DEPLOY ACTIVE 🚀");
