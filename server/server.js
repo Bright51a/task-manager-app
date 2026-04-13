@@ -11,6 +11,7 @@ const app = express();
 // ✅ SIMPLE & CORRECT CORS SETUP
 const allowedOrigins = [
   "http://localhost:5173",
+  "http://localhost:5174",
   "https://task-manager-app-murex-gamma.vercel.app"
 ];
 
