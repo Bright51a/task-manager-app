@@ -62,6 +62,7 @@ router.post("/login", async (req, res) => {
     }
 });
 
+
 // GET USER PROFILE
 router.get("/me", async (req, res) => {
   try {
@@ -80,7 +81,6 @@ router.get("/me", async (req, res) => {
     res.status(401).json({ msg: "Invalid token" });
   }
 });
-
 
 module.exports = router;
 
