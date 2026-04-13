@@ -62,6 +62,26 @@ router.post("/login", async (req, res) => {
     }
 });
 
+// GET USER PROFILE
+router.get("/me", async (req, res) => {
+  try {
+    const token = req.header("Authorization");
+
+    if (!token) return res.status(401).json({ msg: "No token" });
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const user = await User.findById(decoded.id).select("-password");
+
+    res.json(user);
+
+  } catch (err) {
+    console.error(err);
+    res.status(401).json({ msg: "Invalid token" });
+  }
+});
+
+
 module.exports = router;
 
 
