@@ -9,12 +9,26 @@ const taskRoutes = require("./routes/tasks");
 const app = express();
 
 // ✅ SIMPLE & CORRECT CORS SETUP
-app.use(cors({
-  origin: "http://localhost:5173",
-  "https://task-manager-app-murex-gamma.vercel.app/": true,
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
-}));
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://task-manager-app-murex-gamma.vercel.app"
+];
+
+  app.use(cors({
+    origin: function (origin, callback) {
+      // allow requests with no origin (like Postman)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true
+  }));
 
 // ✅ BODY PARSER
 app.use(express.json());
